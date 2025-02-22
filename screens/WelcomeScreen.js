@@ -17,6 +17,7 @@ const WelcomeScreen = ({ navigation }) => {
         autoPlay
         loop
         style={styles.animation}
+        pointerEvents="none"
       />
       <View style={styles.container}>
         <Text style={styles.title}>
@@ -43,6 +44,7 @@ const WelcomeScreen = ({ navigation }) => {
             position: "absolute",
             bottom: 0,
           }}
+          pointerEvents="none"
         />
       </View>
     </View>

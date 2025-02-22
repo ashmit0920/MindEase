@@ -8,7 +8,10 @@ import {
 } from "react-native";
 import { CurvedBottomBarExpo } from "react-native-curved-bottom-bar";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { NavigationContainer } from "@react-navigation/native";
+import {
+  NavigationContainer,
+  NavigationIndependentTree,
+} from "@react-navigation/native";
 import colors from "../utils/colors";
 
 const Screen1 = () => {
@@ -25,18 +28,20 @@ const HomeScreen = () => {
 
     switch (routeName) {
       case "title1":
-        icon = "ios-home-outline";
+        icon = "home-outline";
         break;
       case "title2":
-        icon = "settings-outline";
+        icon = "chatbubbles-outline";
         break;
+      case "title3":
+        icon = "settings-outline";
     }
 
     return (
       <Ionicons
         name={icon}
         size={25}
-        color={routeName === selectedTab ? "black" : "gray"}
+        color={routeName === selectedTab ? "white" : colors.text}
       />
     );
   };
@@ -52,40 +57,47 @@ const HomeScreen = () => {
   };
 
   return (
-    <NavigationContainer>
-      <CurvedBottomBarExpo.Navigator
-        type="DOWN"
-        style={styles.bottomBar}
-        shadowStyle={styles.shawdow}
-        height={55}
-        circleWidth={50}
-        bgColor="white"
-        initialRouteName="title1"
-        borderTopLeftRight
-        renderCircle={({ selectedTab, navigate }) => (
-          <Animated.View style={styles.btnCircleUp}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => Alert.alert("Click Action")}
-            >
-              <Ionicons name={"apps-sharp"} color="gray" size={25} />
-            </TouchableOpacity>
-          </Animated.View>
-        )}
-        tabBar={renderTabBar}
-      >
-        <CurvedBottomBarExpo.Screen
-          name="title1"
-          position="LEFT"
-          component={() => <Screen1 />}
-        />
-        <CurvedBottomBarExpo.Screen
-          name="title2"
-          component={() => <Screen2 />}
-          position="RIGHT"
-        />
-      </CurvedBottomBarExpo.Navigator>
-    </NavigationContainer>
+    <NavigationIndependentTree>
+      <NavigationContainer>
+        <CurvedBottomBarExpo.Navigator
+          type="DOWN"
+          style={styles.bottomBar}
+          shadowStyle={styles.shawdow}
+          height={55}
+          circleWidth={50}
+          bgColor="#58CC02"
+          initialRouteName="title1"
+          borderTopLeftRight
+          renderCircle={({ selectedTab, navigate }) => (
+            <Animated.View style={styles.btnCircleUp}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => Alert.alert("Click Action")}
+              >
+                <Ionicons name={"apps"} color="gray" size={25} />
+              </TouchableOpacity>
+            </Animated.View>
+          )}
+          tabBar={renderTabBar}
+        >
+          <CurvedBottomBarExpo.Screen
+            name="title1"
+            position="LEFT"
+            component={() => <Screen1 />}
+          />
+          <CurvedBottomBarExpo.Screen
+            name="title2"
+            component={() => <Screen2 />}
+            position="RIGHT"
+          />
+          <CurvedBottomBarExpo.Screen
+            name="title3"
+            component={() => <Screen2 />}
+            position="RIGHT"
+          />
+        </CurvedBottomBarExpo.Navigator>
+      </NavigationContainer>
+    </NavigationIndependentTree>
   );
 };
 
@@ -114,7 +126,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#E8E8E8",
+    backgroundColor: "#fff",
     bottom: 30,
     shadowColor: "#000",
     shadowOffset: {
@@ -141,11 +153,11 @@ const styles = StyleSheet.create({
   },
   screen1: {
     flex: 1,
-    backgroundColor: "#BFEFFF",
+    backgroundColor: colors.background,
   },
   screen2: {
     flex: 1,
-    backgroundColor: "#FFEBCD",
+    backgroundColor: colors.background,
   },
 });
 
